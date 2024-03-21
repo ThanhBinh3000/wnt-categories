@@ -36,6 +36,23 @@ public class NhomNhaCungCapsController {
   public ResponseEntity<BaseResponse> colection(@RequestBody NhomNhaCungCapsReq objReq) {
     BaseResponse resp = new BaseResponse();
     try {
+      resp.setData(service.searchPage(objReq));
+      resp.setStatusCode(EnumResponse.RESP_SUCC.getValue());
+      resp.setMsg(EnumResponse.RESP_SUCC.getDescription());
+    } catch (Exception e) {
+      resp.setStatusCode(EnumResponse.RESP_FAIL.getValue());
+      resp.setMsg(e.getMessage());
+      log.error("Tra cứu thông tin : {}", e);
+    }
+    return ResponseEntity.ok(resp);
+  }
+
+  @ApiOperation(value = "Tra cứu", response = List.class)
+  @PostMapping(value = PathContains.URL_SEARCH_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> colectionList(@RequestBody NhomNhaCungCapsReq objReq) {
+    BaseResponse resp = new BaseResponse();
+    try {
       resp.setData(service.searchList(objReq));
       resp.setStatusCode(EnumResponse.RESP_SUCC.getValue());
       resp.setMsg(EnumResponse.RESP_SUCC.getDescription());
@@ -55,6 +72,23 @@ public class NhomNhaCungCapsController {
     BaseResponse resp = new BaseResponse();
     try {
       resp.setData(service.create(objReq));
+      resp.setStatusCode(EnumResponse.RESP_SUCC.getValue());
+      resp.setMsg(EnumResponse.RESP_SUCC.getDescription());
+    } catch (Exception e) {
+      resp.setStatusCode(EnumResponse.RESP_FAIL.getValue());
+      resp.setMsg(e.getMessage());
+      log.error("Tạo mới thông tin  : {}", e);
+    }
+    return ResponseEntity.ok(resp);
+  }
+
+  @ApiOperation(value = "Tạo mới", response = List.class)
+  @PostMapping(value = PathContains.URL_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
+  public ResponseEntity<BaseResponse> update(@Valid @RequestBody NhomNhaCungCapsReq objReq) {
+    BaseResponse resp = new BaseResponse();
+    try {
+      resp.setData(service.update(objReq));
       resp.setStatusCode(EnumResponse.RESP_SUCC.getValue());
       resp.setMsg(EnumResponse.RESP_SUCC.getDescription());
     } catch (Exception e) {
