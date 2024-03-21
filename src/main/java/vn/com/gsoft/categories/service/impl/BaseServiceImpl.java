@@ -10,11 +10,10 @@ import vn.com.gsoft.categories.service.BaseService;
 
 @Service
 @Slf4j
-public class BaseServiceImpl implements BaseService {
+public class BaseServiceImpl {
     @Autowired
     private MessageTemplate messageTemplate;
 
-    @Override
     public Profile getLoggedUser() throws Exception {
         try {
             return (Profile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
