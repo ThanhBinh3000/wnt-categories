@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
         info = @Info(
                 title = "WNT-CATEGORIES",
                 description = "api doc",
-                summary = "Danh mục dùng chung",
                 termsOfService = "WebNhaThuoc",
                 contact = @Contact(
                         name = "Tùng",
