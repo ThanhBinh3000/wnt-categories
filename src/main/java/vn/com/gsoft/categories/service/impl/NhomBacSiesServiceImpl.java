@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.com.gsoft.categories.entity.NhomBacSies;
-import vn.com.gsoft.categories.model.system.NhomBacSiesReq;
+import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import vn.com.gsoft.categories.model.system.Profile;
 import vn.com.gsoft.categories.repository.NhomBacSiesRepository;
 import vn.com.gsoft.categories.service.NhomBacSiesService;

@@ -17,6 +17,7 @@ import vn.com.gsoft.categories.model.system.Profile;
 import vn.com.gsoft.categories.repository.DepartmentRepository;
 import vn.com.gsoft.categories.repository.RoleRepository;
 import vn.com.gsoft.categories.repository.UserRepository;
+import vn.com.gsoft.categories.repository.feign.UserProfileFeign;
 import vn.com.gsoft.categories.service.UserService;
 
 import java.util.HashSet;
@@ -28,45 +29,12 @@ import java.util.Set;
 @Slf4j
 public class UserServiceImpl extends BaseServiceImpl implements UserService, UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private DepartmentRepository departmentRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private UserProfileFeign userProfileFeign;
 
     @Override
-    @Cacheable(value = CachingConstant.USER)
     public Optional<Profile> findUserByToken(String token) {
-        log.warn("Cache findUserByToken missing: user");
-        return Optional.empty();
+        return Optional.of(userProfileFeign.getProfile());
     }
-
-    @Override
-    public Optional<Profile> findUserByUsername(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-        if (!user.isPresent()) {
-            throw new BadCredentialsException("Không tìm thấy username!");
-        }
-        Long entityTypeId = user.get().getEntityTypeId();
-        Set<SimpleGrantedAuthority> privileges = new HashSet<>();
-        List<Department> departments = departmentRepository.findByUserId(user.get().getId());
-        return Optional.of(new Profile(
-                user.get().getId(),
-                user.get().getFullName(),
-                entityTypeId,
-                null,
-                null,
-                departments,
-                user.get().getUsername(),
-                user.get().getPassword(),
-                user.get().getStatus() == UserStatus.ACTIVE,
-                true,
-                true,
-                true,
-                privileges
-        ));
-    }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

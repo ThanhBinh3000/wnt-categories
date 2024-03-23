@@ -8,14 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import vn.com.gsoft.categories.entity.NhomBacSies;
 import vn.com.gsoft.categories.entity.NhomKhachHangs;
-import vn.com.gsoft.categories.model.system.NhomBacSiesReq;
-import vn.com.gsoft.categories.model.system.NhomKhachHangsReq;
+import vn.com.gsoft.categories.model.dto.NhomKhachHangsReq;
 import vn.com.gsoft.categories.model.system.Profile;
-import vn.com.gsoft.categories.repository.NhomBacSiesRepository;
 import vn.com.gsoft.categories.repository.NhomKhachHangsRepository;
-import vn.com.gsoft.categories.service.NhomBacSiesService;
 import vn.com.gsoft.categories.service.NhomKhachHangsService;
 
 import java.util.List;

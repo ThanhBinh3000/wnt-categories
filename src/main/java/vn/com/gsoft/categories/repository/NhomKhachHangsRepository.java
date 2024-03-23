@@ -6,10 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import vn.com.gsoft.categories.entity.NhomBacSies;
 import vn.com.gsoft.categories.entity.NhomKhachHangs;
-import vn.com.gsoft.categories.model.system.NhomBacSiesReq;
-import vn.com.gsoft.categories.model.system.NhomKhachHangsReq;
+import vn.com.gsoft.categories.model.dto.NhomKhachHangsReq;
 
 import java.util.List;
 

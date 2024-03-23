@@ -8,14 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import vn.com.gsoft.categories.entity.NhomNhaCungCaps;
 import vn.com.gsoft.categories.entity.NhomThuocs;
-import vn.com.gsoft.categories.model.system.NhomNhaCungCapsReq;
-import vn.com.gsoft.categories.model.system.NhomThuocsReq;
+import vn.com.gsoft.categories.model.dto.NhomThuocsReq;
 import vn.com.gsoft.categories.model.system.Profile;
-import vn.com.gsoft.categories.repository.NhomNhaCungCapsRepository;
 import vn.com.gsoft.categories.repository.NhomThuocsRepository;
-import vn.com.gsoft.categories.service.NhomNhaCungCapsService;
 import vn.com.gsoft.categories.service.NhomThuocsService;
 
 import java.util.List;

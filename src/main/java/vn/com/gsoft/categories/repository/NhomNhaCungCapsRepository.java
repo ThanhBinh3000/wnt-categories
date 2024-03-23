@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vn.com.gsoft.categories.entity.NhomNhaCungCaps;
-import vn.com.gsoft.categories.entity.NhomThuocs;
-import vn.com.gsoft.categories.model.system.NhomNhaCungCapsReq;
-import vn.com.gsoft.categories.model.system.NhomThuocsReq;
+import vn.com.gsoft.categories.model.dto.NhomNhaCungCapsReq;
 
 import java.util.List;
 

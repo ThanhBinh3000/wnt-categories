@@ -12,10 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.com.gsoft.categories.enums.EnumResponse;
-import vn.com.gsoft.categories.model.system.NhomBacSiesReq;
-import vn.com.gsoft.categories.model.system.NhomThuocsReq;
+import vn.com.gsoft.categories.model.dto.NhomThuocsReq;
 import vn.com.gsoft.categories.response.BaseResponse;
-import vn.com.gsoft.categories.service.NhomKhachHangsService;
 import vn.com.gsoft.categories.service.NhomThuocsService;
 import vn.com.gsoft.categories.util.system.PathContains;
 

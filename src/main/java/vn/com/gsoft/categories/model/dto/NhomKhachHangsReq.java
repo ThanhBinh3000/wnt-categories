@@ -1,7 +1,8 @@
-package vn.com.gsoft.categories.model.system;
+package vn.com.gsoft.categories.model.dto;
 
 import jakarta.persistence.Column;
 import lombok.*;
+import vn.com.gsoft.categories.model.system.BaseRequest;
 
 import java.time.LocalDateTime;
 

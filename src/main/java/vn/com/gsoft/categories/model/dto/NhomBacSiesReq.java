@@ -1,10 +1,11 @@
-package vn.com.gsoft.categories.model.system;
+package vn.com.gsoft.categories.model.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import vn.com.gsoft.categories.entity.BaseEntity;
+import vn.com.gsoft.categories.model.system.BaseRequest;
 
 @Data
 public class NhomBacSiesReq extends BaseRequest {
