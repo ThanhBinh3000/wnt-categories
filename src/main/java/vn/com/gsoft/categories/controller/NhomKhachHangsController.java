@@ -1,9 +1,7 @@
 package vn.com.gsoft.categories.controller;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +20,13 @@ import java.util.List;
 @RestController
 @RequestMapping(value = PathContains.URL_NHOM_KHACH_HANG)
 @Slf4j
-@Api(tags = "Nhóm khách hàng")
+
 public class NhomKhachHangsController {
 
   @Autowired
   NhomKhachHangsService service;
 
-  @ApiOperation(value = "Tra cứu", response = List.class)
+
   @PostMapping(value = PathContains.URL_SEARCH_PAGE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> colection(@RequestBody NhomKhachHangsReq objReq) {
@@ -45,7 +43,7 @@ public class NhomKhachHangsController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Tra cứu", response = List.class)
+
   @PostMapping(value = PathContains.URL_SEARCH_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> colectionList(@RequestBody NhomKhachHangsReq objReq) {
@@ -63,7 +61,6 @@ public class NhomKhachHangsController {
   }
 
 
-  @ApiOperation(value = "Tạo mới", response = List.class)
   @PostMapping(value = PathContains.URL_CREATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<BaseResponse> insert(@Valid @RequestBody NhomKhachHangsReq objReq) {
@@ -80,7 +77,7 @@ public class NhomKhachHangsController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Update ", response = List.class)
+
   @PostMapping(value = PathContains.URL_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<BaseResponse> update(@Valid @RequestBody NhomKhachHangsReq objReq) {
@@ -97,10 +94,10 @@ public class NhomKhachHangsController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Lấy chi tiết", response = List.class)
+
   @GetMapping(value = PathContains.URL_DETAIL, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<BaseResponse> detail(@ApiParam(value = "ID thông tin", example = "1", required = true) @PathVariable("id") Long id) {
+  public ResponseEntity<BaseResponse> detail(@PathVariable("id") Long id) {
     BaseResponse resp = new BaseResponse();
     try {
       resp.setData(service.detail(id));
@@ -116,7 +113,7 @@ public class NhomKhachHangsController {
 
 
 
-  @ApiOperation(value = "Xoá thông tin", response = List.class, produces = MediaType.APPLICATION_JSON_VALUE)
+
   @PostMapping(value = PathContains.URL_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> delete(@Valid @RequestBody NhomKhachHangsReq idSearchReq) {

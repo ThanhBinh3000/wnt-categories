@@ -1,9 +1,7 @@
 package vn.com.gsoft.categories.controller;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +21,13 @@ import java.util.List;
 @RestController
 @RequestMapping(value = PathContains.URL_NHOM_BAC_SI)
 @Slf4j
-@Api(tags = "Nhóm bác sĩ")
+
 public class NhomBacSiesController {
 
   @Autowired
   NhomBacSiesService service;
 
-  @ApiOperation(value = "Tra cứu", response = List.class)
+
   @PostMapping(value = PathContains.URL_SEARCH_PAGE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> colection(@RequestBody NhomBacSiesReq objReq) {
@@ -46,7 +44,7 @@ public class NhomBacSiesController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Tra cứu", response = List.class)
+
   @PostMapping(value = PathContains.URL_SEARCH_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> colectionList(@RequestBody NhomBacSiesReq objReq) {
@@ -64,7 +62,7 @@ public class NhomBacSiesController {
   }
 
 
-  @ApiOperation(value = "Tạo mới", response = List.class)
+
   @PostMapping(value = PathContains.URL_CREATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<BaseResponse> insert(@Valid @RequestBody NhomBacSiesReq objReq) {
@@ -81,7 +79,7 @@ public class NhomBacSiesController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Tạo mới", response = List.class)
+
   @PostMapping(value = PathContains.URL_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<BaseResponse> update(@Valid @RequestBody NhomBacSiesReq objReq) {
@@ -98,10 +96,9 @@ public class NhomBacSiesController {
     return ResponseEntity.ok(resp);
   }
 
-  @ApiOperation(value = "Lấy chi tiết", response = List.class)
   @GetMapping(value = PathContains.URL_DETAIL, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<BaseResponse> detail(@ApiParam(value = "ID thông tin", example = "1", required = true) @PathVariable("id") Long id) {
+  public ResponseEntity<BaseResponse> detail(@PathVariable("id") Long id) {
     BaseResponse resp = new BaseResponse();
     try {
       resp.setData(service.detail(id));
@@ -117,7 +114,6 @@ public class NhomBacSiesController {
 
 
 
-  @ApiOperation(value = "Xoá thông tin", response = List.class, produces = MediaType.APPLICATION_JSON_VALUE)
   @PostMapping(value = PathContains.URL_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> delete(@Valid @RequestBody NhomBacSiesReq idSearchReq) {
