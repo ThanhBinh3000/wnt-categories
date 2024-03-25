@@ -14,7 +14,7 @@ import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import java.util.List;
 
 @Repository
-public interface DonViTinhsRepository extends CrudRepository<DonViTinhs, Long> {
+public interface DonViTinhsRepository extends BaseRepository<DonViTinhs, DonViTinhsReq, Long> {
 //    List<NhaThuocs> findByUserId(Long id);
 
     @Query("SELECT c FROM DonViTinhs c " +

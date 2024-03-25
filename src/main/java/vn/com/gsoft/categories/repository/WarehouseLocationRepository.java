@@ -14,7 +14,7 @@ import vn.com.gsoft.categories.model.dto.WarehouseLocationReq;
 import java.util.List;
 
 @Repository
-public interface WarehouseLocationRepository extends CrudRepository<WarehouseLocation, Long> {
+public interface WarehouseLocationRepository extends BaseRepository<WarehouseLocation, WarehouseLocationReq, Long> {
 //    List<NhaThuocs> findByUserId(Long id);
 
     @Query("SELECT c FROM WarehouseLocation c " +

@@ -14,7 +14,7 @@ import vn.com.gsoft.categories.model.dto.ThuocsReq;
 import java.util.List;
 
 @Repository
-public interface ThuocsRepository extends CrudRepository<Thuocs, Long> {
+public interface ThuocsRepository extends BaseRepository<Thuocs, ThuocsReq, Long> {
 //    List<NhaThuocs> findByUserId(Long id);
 
     @Query("SELECT c FROM Thuocs c " +

@@ -23,74 +23,12 @@ import java.util.Optional;
 
 @Service
 @Log4j2
-public class DonViTinhsServiceImpl extends BaseServiceImpl implements DonViTinhsService {
+public class DonViTinhsServiceImpl extends BaseServiceImpl<DonViTinhs, DonViTinhsReq,Long> implements DonViTinhsService {
 
-	@Autowired
 	private DonViTinhsRepository hdrRepo;
-
-	@Override
-	public Page<DonViTinhs> searchPage(DonViTinhsReq req) throws Exception {
-		Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
-		return hdrRepo.searchPage(req, pageable);
+	@Autowired
+	public DonViTinhsServiceImpl(DonViTinhsRepository hdrRepo) {
+		super(hdrRepo);
+		this.hdrRepo = hdrRepo;
 	}
-
-	@Override
-	public List<DonViTinhs> searchList(DonViTinhsReq req) throws Exception {
-		return hdrRepo.searchList(req);
-	}
-
-	@Override
-	public DonViTinhs create(DonViTinhsReq req) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-		DonViTinhs nhaThuocs = new DonViTinhs();
-		BeanUtils.copyProperties(req, nhaThuocs, "id");
-		hdrRepo.save(nhaThuocs);
-		return nhaThuocs;
-	}
-
-	@Override
-	public DonViTinhs update(DonViTinhsReq req) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-//		Optional<DonViTinhs> optional = hdrRepo.findById(req.());
-//		if (optional.isEmpty()) {
-//			throw new Exception("Không tìm thấy dữ liệu.");
-//		}
-
-		DonViTinhs nhaThuocs = new DonViTinhs();
-		BeanUtils.copyProperties(req, nhaThuocs, "id");
-		hdrRepo.save(nhaThuocs);
-		return nhaThuocs;
-	}
-
-	@Override
-	public DonViTinhs detail(Long id) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-		Optional<DonViTinhs> optional = hdrRepo.findById(id);
-		if (optional.isEmpty()) {
-			throw new Exception("Không tìm thấy dữ liệu.");
-		}
-		return optional.get();
-	}
-
-	@Override
-	public void delete(Long id) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-		Optional<DonViTinhs> optional = hdrRepo.findById(id);
-		if (optional.isEmpty()) {
-			throw new Exception("Không tìm thấy dữ liệu.");
-		}
-		hdrRepo.delete(optional.get());
-	}
-
 }

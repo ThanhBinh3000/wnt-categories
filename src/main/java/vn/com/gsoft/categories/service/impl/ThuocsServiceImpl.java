@@ -13,6 +13,7 @@ import vn.com.gsoft.categories.entity.Thuocs;
 import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import vn.com.gsoft.categories.model.dto.ThuocsReq;
 import vn.com.gsoft.categories.model.system.Profile;
+import vn.com.gsoft.categories.repository.DonViTinhsRepository;
 import vn.com.gsoft.categories.repository.NhomBacSiesRepository;
 import vn.com.gsoft.categories.repository.ThuocsRepository;
 import vn.com.gsoft.categories.service.NhomBacSiesService;
@@ -23,74 +24,14 @@ import java.util.Optional;
 
 @Service
 @Log4j2
-public class ThuocsServiceImpl extends BaseServiceImpl implements ThuocsService {
+public class ThuocsServiceImpl extends BaseServiceImpl<Thuocs, ThuocsReq,Long> implements ThuocsService {
 
-	@Autowired
 	private ThuocsRepository hdrRepo;
 
-	@Override
-	public Page<Thuocs> searchPage(ThuocsReq req) throws Exception {
-		Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
-		return hdrRepo.searchPage(req, pageable);
-	}
-
-	@Override
-	public List<Thuocs> searchList(ThuocsReq req) throws Exception {
-		return hdrRepo.searchList(req);
-	}
-
-	@Override
-	public Thuocs create(ThuocsReq req) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-		Thuocs nhaThuocs = new Thuocs();
-		BeanUtils.copyProperties(req, nhaThuocs, "id");
-		hdrRepo.save(nhaThuocs);
-		return nhaThuocs;
-	}
-
-	@Override
-	public Thuocs update(ThuocsReq req) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-		Optional<Thuocs> optional = hdrRepo.findById(req.getNameHash());
-		if (optional.isEmpty()) {
-			throw new Exception("Không tìm thấy dữ liệu.");
-		}
-
-		Thuocs nhaThuocs = optional.get();
-		BeanUtils.copyProperties(req, nhaThuocs, "id");
-		hdrRepo.save(nhaThuocs);
-		return nhaThuocs;
-	}
-
-	@Override
-	public Thuocs detail(Long id) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-		Optional<Thuocs> optional = hdrRepo.findById(id);
-		if (optional.isEmpty()) {
-			throw new Exception("Không tìm thấy dữ liệu.");
-		}
-		return optional.get();
-	}
-
-	@Override
-	public void delete(Long id) throws Exception {
-		Profile userInfo = this.getLoggedUser();
-		if (userInfo == null)
-			throw new Exception("Bad request.");
-
-		Optional<Thuocs> optional = hdrRepo.findById(id);
-		if (optional.isEmpty()) {
-			throw new Exception("Không tìm thấy dữ liệu.");
-		}
-		hdrRepo.delete(optional.get());
+	@Autowired
+	public ThuocsServiceImpl(ThuocsRepository hdrRepo) {
+		super(hdrRepo);
+		this.hdrRepo = hdrRepo;
 	}
 
 }
