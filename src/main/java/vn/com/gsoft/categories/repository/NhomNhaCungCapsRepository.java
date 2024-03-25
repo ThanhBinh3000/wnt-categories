@@ -12,7 +12,7 @@ import vn.com.gsoft.categories.model.dto.NhomNhaCungCapsReq;
 import java.util.List;
 
 @Repository
-public interface NhomNhaCungCapsRepository extends CrudRepository<NhomNhaCungCaps, Long> {
+public interface NhomNhaCungCapsRepository extends BaseRepository<NhomNhaCungCaps, NhomNhaCungCapsReq, Long> {
 //    List<NhaThuocs> findByUserId(Long id);
 
     @Query("SELECT c FROM NhomNhaCungCaps c " +
