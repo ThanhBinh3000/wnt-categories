@@ -39,14 +39,11 @@ public class NhomThuocsController {
     return ResponseEntity.ok(ResponseUtils.ok(service.searchList(objReq)));
   }
 
-
-
   @PostMapping(value = PathContains.URL_CREATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<BaseResponse> insert(@Valid @RequestBody NhomThuocsReq objReq) throws Exception {
     return ResponseEntity.ok(ResponseUtils.ok(service.create(objReq)));
   }
-
 
   @PostMapping(value = PathContains.URL_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -54,15 +51,11 @@ public class NhomThuocsController {
     return ResponseEntity.ok(ResponseUtils.ok(service.update(objReq)));
   }
 
-
   @GetMapping(value = PathContains.URL_DETAIL, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> detail(@PathVariable("id") Long id) throws Exception {
     return ResponseEntity.ok(ResponseUtils.ok(service.detail(id)));
   }
-
-
-
 
   @PostMapping(value = PathContains.URL_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
