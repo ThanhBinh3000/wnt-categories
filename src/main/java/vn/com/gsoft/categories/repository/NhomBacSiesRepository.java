@@ -12,7 +12,7 @@ import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import java.util.List;
 
 @Repository
-public interface NhomBacSiesRepository extends CrudRepository<NhomBacSies, Long> {
+public interface NhomBacSiesRepository extends BaseRepository<NhomBacSies, NhomBacSiesReq, Long> {
 //    List<NhaThuocs> findByUserId(Long id);
 
     @Query("SELECT c FROM NhomBacSies c " +
