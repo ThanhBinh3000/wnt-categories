@@ -14,6 +14,8 @@ import lombok.*;
 public class NhomThuocs extends BaseEntity {
 
     @Id
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Long maNhomThuoc;
     private String tenNhomThuoc;
