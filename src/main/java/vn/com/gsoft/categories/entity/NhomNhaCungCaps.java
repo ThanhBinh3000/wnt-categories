@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "NhomNhaCungCapsReq")
+@Table(name = "NhomNhaCungCaps")
 public class NhomNhaCungCaps extends BaseEntity {
 
     @Id

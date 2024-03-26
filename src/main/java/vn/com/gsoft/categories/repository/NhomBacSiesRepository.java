@@ -26,4 +26,7 @@ public interface NhomBacSiesRepository extends BaseRepository<NhomBacSies, NhomB
     )
     List<NhomBacSies> searchList(@Param("param") NhomBacSiesReq param);
 
+    List<NhomBacSies> findAllByMaNhomBacSy(String maNhomBacSy);
+    void deleteByMaNhomBacSy(String maNhomBacSy);
+
 }

@@ -19,12 +19,10 @@ import vn.com.gsoft.categories.util.system.ResponseUtils;
 @RestController
 @RequestMapping(value = PathContains.URL_NHOM_THUOC)
 @Slf4j
-
 public class NhomThuocsController {
 
   @Autowired
   NhomThuocsService service;
-
 
   @PostMapping(value = PathContains.URL_SEARCH_PAGE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
