@@ -1,8 +1,7 @@
 package vn.com.gsoft.categories.entity;
 
+import jakarta.persistence.*;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter
@@ -15,6 +14,7 @@ import lombok.*;
 public class NhomThuocs extends BaseEntity {
 
     @Id
+    private Long id;
     private Long maNhomThuoc;
     private String tenNhomThuoc;
     private String kyHieuNhomThuoc;
