@@ -20,4 +20,10 @@ public class NhomThuocsServiceImpl extends BaseServiceImpl<NhomThuocs, NhomThuoc
 		this.hdrRepo = hdrRepo;
 	}
 
+//
+//	@Override
+//	public NhomThuocs create(NhomThuocsReq req){
+//		return new NhomThuocs();
+//	}
+
 }
