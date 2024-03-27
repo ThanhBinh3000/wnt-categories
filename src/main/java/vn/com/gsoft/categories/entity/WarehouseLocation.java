@@ -13,24 +13,16 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "WarehouseLocation")
-public class WarehouseLocation {
+public class WarehouseLocation extends BaseEntity {
     @Id
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
     @Column(name = "Code")
     private String code;
     @Column(name = "NameWarehouse")
     private String nameWarehouse;
     @Column(name = "StoreCode")
     private String storeCode;
-    @Column(name = "Created")
-    private Date created;
-    @Column(name = "Modified")
-    private Date modified;
-    @Column(name = "CreateBy")
-    private Integer createBy;
-    @Column(name = "ModifieBy")
-    private Integer modifieBy;
     @Column(name = "RecordStatusId")
     private Integer recordStatusId;
     @Column(name = "Descriptions")

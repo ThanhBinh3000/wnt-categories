@@ -16,10 +16,10 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "Thuocs")
-public class Thuocs {
+public class Thuocs extends BaseEntity{
     @Id
-    @Column(name = "ThuocId")
-    private Integer thuocId;
+    @Column(name = "id")
+    private Long id;
     @Column(name = "MaThuoc")
     private String maThuoc;
     @Column(name = "TenThuoc")
@@ -52,14 +52,6 @@ public class Thuocs {
     private Integer donViXuatLeMaDonViTinh;
     @Column(name = "DonViThuNguyen_MaDonViTinh")
     private Integer donViThuNguyenMaDonViTinh;
-    @Column(name = "Created")
-    private Date created;
-    @Column(name = "Modified")
-    private Date modified;
-    @Column(name = "CreatedBy_UserId")
-    private Integer createdByUserId;
-    @Column(name = "ModifiedBy_UserId")
-    private Integer modifiedByUserId;
     @Column(name = "BarCode")
     private String barCode;
     @Column(name = "HoatDong")

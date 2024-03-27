@@ -12,7 +12,6 @@ import java.util.Date;
 
 @Data
 public class WarehouseLocationReq extends BaseRequest {
-    private Long id;
     private String code;
     private String nameWarehouse;
     private String storeCode;

@@ -10,7 +10,6 @@ import vn.com.gsoft.categories.model.system.BaseRequest;
 
 @Data
 public class DonViTinhsReq extends BaseRequest {
-    private Integer maDonViTinh;
     private String tenDonViTinh;
     private String maNhaThuoc;
     private Integer referenceId;

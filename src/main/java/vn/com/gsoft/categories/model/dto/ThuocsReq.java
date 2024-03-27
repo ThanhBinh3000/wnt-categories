@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 public class ThuocsReq extends BaseRequest {
 
-    private Integer thuocId;
     private String maThuoc;
     private String tenThuoc;
     private String thongTin;

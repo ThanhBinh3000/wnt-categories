@@ -14,10 +14,10 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "DonViTinhs")
-public class DonViTinhs {
+public class DonViTinhs extends BaseEntity{
     @Id
-    @Column(name = "MaDonViTinh")
-    private Integer maDonViTinh;
+    @Column(name="id")
+    private Long id;
     @Column(name = "TenDonViTinh")
     private String tenDonViTinh;
     @Column(name = "MaNhaThuoc")

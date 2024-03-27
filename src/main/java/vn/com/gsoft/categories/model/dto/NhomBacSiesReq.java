@@ -10,11 +10,8 @@ import vn.com.gsoft.categories.model.system.BaseRequest;
 @Data
 public class NhomBacSiesReq extends BaseRequest {
 
-    private String maNhomBacSy;
     private String tenNhomBacSy;
     private String ghiChu;
     private String maNhaThuoc;
     private Long recordStatusID;
-
-
 }

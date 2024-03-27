@@ -7,8 +7,6 @@ import vn.com.gsoft.categories.model.system.BaseRequest;
 @Data
 public class NhomNhaCungCapsReq extends BaseRequest {
 
-    @Id
-    private Long maNhomNhaCungCap;
     private String tenNhomNhaCungCap;
     private String ghiChu;
     private String maNhaThuoc;

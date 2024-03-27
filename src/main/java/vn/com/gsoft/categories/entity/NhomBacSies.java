@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public class NhomBacSies extends BaseEntity {
 
     @Id
-    private String maNhomBacSy;
+    @Column(name="id")
+    private Long id;
     private String tenNhomBacSy;
     private String ghiChu;
     private String maNhaThuoc;

@@ -1,17 +1,11 @@
 package vn.com.gsoft.categories.model.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.*;
-import vn.com.gsoft.categories.entity.BaseEntity;
+import lombok.Data;
 import vn.com.gsoft.categories.model.system.BaseRequest;
 
 @Data
 public class NhomThuocsReq extends BaseRequest {
 
-    private Long id;
-    private Long recordStatusID;
     private Long maNhomThuoc;
     private String tenNhomThuoc;
     private String kyHieuNhomThuoc;

@@ -19,13 +19,13 @@ public interface DonViTinhsRepository extends BaseRepository<DonViTinhs, DonViTi
 
     @Query("SELECT c FROM DonViTinhs c " +
             " WHERE 1=1 " +
-            "ORDER BY c.maDonViTinh desc "
+            "ORDER BY c.id desc "
     )
     Page<DonViTinhs> searchPage(@Param("param") DonViTinhsReq param, Pageable pageable);
 
     @Query("SELECT c FROM DonViTinhs c " +
             " WHERE 1=1 " +
-            "ORDER BY c.maDonViTinh desc "
+            "ORDER BY c.id desc "
     )
     List<DonViTinhs> searchList(@Param("param") DonViTinhsReq param);
 

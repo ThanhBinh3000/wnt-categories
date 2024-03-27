@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ import java.time.LocalDateTime;
 public class NhomKhachHangs extends BaseEntity {
 
     @Id
-    private String maNhomKhachHang;
+    @Column(name="id")
+    private Long id;
     private String tenNhomKhachHang;
     private String ghiChu;
     @Column(name="NhaThuoc_MaNhaThuoc")
@@ -28,7 +30,7 @@ public class NhomKhachHangs extends BaseEntity {
     private Long groupTypeId;
     private String fullName;
     private String idCard;
-    private LocalDateTime birthDate;
+    private Date birthDate;
     private String classId;
     private String mobile;
     private Long archivedId;

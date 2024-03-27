@@ -6,7 +6,6 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class WarehouseTransitionReq {
-    private Long id;
     private Integer deliveryNoteId;
     private Integer receiptNoteId;
     private Integer recordStatusId;

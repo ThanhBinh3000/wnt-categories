@@ -13,10 +13,10 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "WarehouseTransition")
-public class WarehouseTransition {
+public class WarehouseTransition extends BaseEntity{
     @Id
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
     @Column(name = "DeliveryNoteId")
     private Integer deliveryNoteId;
     @Column(name = "ReceiptNoteId")

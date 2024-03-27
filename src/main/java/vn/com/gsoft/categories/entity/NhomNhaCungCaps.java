@@ -19,7 +19,8 @@ import java.time.LocalDateTime;
 public class NhomNhaCungCaps extends BaseEntity {
 
     @Id
-    private Long maNhomNhaCungCap;
+    @Column(name="id")
+    private Long id;
     private String tenNhomNhaCungCap;
     private String ghiChu;
     private String maNhaThuoc;
