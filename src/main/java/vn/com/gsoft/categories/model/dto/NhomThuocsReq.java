@@ -6,7 +6,6 @@ import vn.com.gsoft.categories.model.system.BaseRequest;
 @Data
 public class NhomThuocsReq extends BaseRequest {
 
-    private Long maNhomThuoc;
     private String tenNhomThuoc;
     private String kyHieuNhomThuoc;
     private String maNhaThuoc;

@@ -17,7 +17,6 @@ public class NhomThuocs extends BaseEntity {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private Long maNhomThuoc;
     private String tenNhomThuoc;
     private String kyHieuNhomThuoc;
     private String maNhaThuoc;
