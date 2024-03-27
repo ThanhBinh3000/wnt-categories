@@ -18,7 +18,7 @@ public interface NhomThuocsRepository extends BaseRepository<NhomThuocs, NhomThu
 
     @Query("SELECT c FROM NhomThuocs c " +
             "WHERE 1=1 "
-            + " AND (:#{#param.maNhomThuoc} IS NULL OR c.maNhomThuoc = :#{#param.maNhomThuoc}) "
+            + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id}) "
             + " AND (:#{#param.tenNhomThuoc} IS NULL OR lower(c.tenNhomThuoc) LIKE lower(concat('%',CONCAT(:#{#param.tenNhomThuoc},'%'))))"
             + " AND (:#{#param.kyHieuNhomThuoc} IS NULL OR lower(c.kyHieuNhomThuoc) LIKE lower(concat('%',CONCAT(:#{#param.kyHieuNhomThuoc},'%'))))"
             + " AND (:#{#param.maNhaThuoc} IS NULL OR lower(c.maNhaThuoc) LIKE lower(concat('%',CONCAT(:#{#param.maNhaThuoc},'%'))))"
@@ -32,28 +32,28 @@ public interface NhomThuocsRepository extends BaseRepository<NhomThuocs, NhomThu
             + " AND (:#{#param.archivedId} IS NULL OR c.archivedId = :#{#param.archivedId}) "
             + " AND (:#{#param.storeId} IS NULL OR c.storeId = :#{#param.storeId}) "
             + " AND (:#{#param.typeGroupProduct} IS NULL OR c.typeGroupProduct = :#{#param.typeGroupProduct}) "
-            + " ORDER BY c.maNhomThuoc desc"
+            + " ORDER BY c.id desc"
     )
     Page<NhomThuocs> searchPage(@Param("param") NhomThuocsReq param, Pageable pageable);
 
 
     @Query("SELECT c FROM NhomThuocs c " +
             "WHERE 1=1 "
-            + " AND (:#{#param.maNhomThuoc} IS NULL OR c.maNhomThuoc = :#{#param.maNhomThuoc}) "
+            + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id}) "
             + " AND (:#{#param.tenNhomThuoc} IS NULL OR lower(c.tenNhomThuoc) LIKE lower(concat('%',CONCAT(:#{#param.tenNhomThuoc},'%'))))"
             + " AND (:#{#param.kyHieuNhomThuoc} IS NULL OR lower(c.kyHieuNhomThuoc) LIKE lower(concat('%',CONCAT(:#{#param.kyHieuNhomThuoc},'%'))))"
             + " AND (:#{#param.maNhaThuoc} IS NULL OR lower(c.maNhaThuoc) LIKE lower(concat('%',CONCAT(:#{#param.maNhaThuoc},'%'))))"
-            + " AND (:#{#param.created} IS NULL OR c.created >= :#{#param.createdFrom}) "
-            + " AND (:#{#param.created} IS NULL OR c.created <= :#{#param.createdTo}) "
-            + " AND (:#{#param.modified} IS NULL OR c.modified >= :#{#param.modifiedFrom}) "
-            + " AND (:#{#param.modified} IS NULL OR c.modified <= :#{#param.modifiedTo}) "
-            + " AND (:#{#param.createdByUserId} IS NULL OR c.createdByUserId = :#{#param.createdByUserId}) "
-            + " AND (:#{#param.modifiedByUserId} IS NULL OR c.modifiedByUserId = :#{#param.modifiedByUserId}) "
+//            + " AND (:#{#param.created} IS NULL OR c.created >= :#{#param.createdFrom}) "
+//            + " AND (:#{#param.created} IS NULL OR c.created <= :#{#param.createdTo}) "
+//            + " AND (:#{#param.modified} IS NULL OR c.modified >= :#{#param.modifiedFrom}) "
+//            + " AND (:#{#param.modified} IS NULL OR c.modified <= :#{#param.modifiedTo}) "
+//            + " AND (:#{#param.createdByUserId} IS NULL OR c.createdByUserId = :#{#param.createdByUserId}) "
+//            + " AND (:#{#param.modifiedByUserId} IS NULL OR c.modifiedByUserId = :#{#param.modifiedByUserId}) "
             + " AND (:#{#param.referenceId} IS NULL OR c.referenceId = :#{#param.referenceId}) "
             + " AND (:#{#param.archivedId} IS NULL OR c.archivedId = :#{#param.archivedId}) "
             + " AND (:#{#param.storeId} IS NULL OR c.storeId = :#{#param.storeId}) "
             + " AND (:#{#param.typeGroupProduct} IS NULL OR c.typeGroupProduct = :#{#param.typeGroupProduct}) "
-            + " ORDER BY c.maNhomThuoc desc"
+            + " ORDER BY c.id desc"
     )
     List<NhomThuocs> searchList(@Param("param") NhomThuocsReq param);
 
