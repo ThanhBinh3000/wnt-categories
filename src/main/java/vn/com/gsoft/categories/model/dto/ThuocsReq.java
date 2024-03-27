@@ -1,10 +1,7 @@
 package vn.com.gsoft.categories.model.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import vn.com.gsoft.categories.model.system.BaseRequest;
 
 import java.math.BigDecimal;
@@ -30,13 +27,16 @@ public class ThuocsReq extends BaseRequest {
     private Integer dangBaoCheMaDangBaoChe;
     private Integer donViXuatLeMaDonViTinh;
     private Integer donViThuNguyenMaDonViTinh;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date created;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date modified;
     private Integer createdByUserId;
     private Integer modifiedByUserId;
     private String barCode;
     private Boolean hoatDong;
     private Boolean hangTuVan;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date hanDung;
     private Integer duTru;
     private Boolean active;
@@ -54,7 +54,9 @@ public class ThuocsReq extends BaseRequest {
     private Integer saleTypeId;
     private BigDecimal saleOff;
     private String saleDescription;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date saleStartDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date saleEndDate;
     private Boolean scorable;
     private String imageThumbUrl;
@@ -65,133 +67,72 @@ public class ThuocsReq extends BaseRequest {
     private Integer productTypeId;
     private String serialNumber;
     private BigDecimal moneyToOneScoreRate;
-    @Column(name = "Presentation")
     private Boolean presentation;
-    @Column(name = "NameHash")
     private Long nameHash;
-    @Column(name = "RegisteredNo")
     private String registeredNo;
-    @Column(name = "ActiveSubstance")
     private String activeSubstance;
-    @Column(name = "Contents")
     private String contents;
-    @Column(name = "PackingWay")
     private String packingWay;
-    @Column(name = "Manufacturer")
     private String manufacturer;
-    @Column(name = "CountryOfManufacturer")
     private String countryOfManufacturer;
-    @Column(name = "CountryId")
     private Integer countryId;
-    @Column(name = "ConnectivityId")
     private String connectivityId;
-    @Column(name = "ConnectivityResult")
     private String connectivityResult;
-    @Column(name = "ConnectivityDateTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date connectivityDateTime;
-    @Column(name = "DosageForms")
     private String dosageForms;
-    @Column(name = "SmallestPackingUnit")
     private String smallestPackingUnit;
-    @Column(name = "Importers")
     private String importers;
-    @Column(name = "DeclaredPrice")
     private BigDecimal declaredPrice;
-    @Column(name = "ConnectivityCode")
     private String connectivityCode;
-    @Column(name = "CodeHash")
     private Long codeHash;
-    @Column(name = "ConnectivityStatusId")
     private Integer connectivityStatusId;
-    @Column(name = "OrganizeDeclaration")
     private String organizeDeclaration;
-    @Column(name = "CountryRegistration")
     private String countryRegistration;
-    @Column(name = "AddressRegistration")
     private String addressRegistration;
-    @Column(name = "AddressManufacture")
     private String addressManufacture;
-    @Column(name = "Identifier")
     private String identifier;
-    @Column(name = "Classification")
     private String classification;
-    @Column(name = "ForWholesale")
     private Integer forWholesale;
-    @Column(name = "HoatChat")
     private String hoatChat;
-    @Column(name = "TypeService")
     private Integer typeService;
-    @Column(name = "TypeServices")
     private Integer typeServices;
-    @Column(name = "IdTypeService")
     private Integer idTypeService;
-    @Column(name = "IdClinic")
     private Integer idClinic;
-    @Column(name = "CountNumbers")
     private Integer countNumbers;
-    @Column(name = "IdWarehouseLocation")
     private Integer idWarehouseLocation;
-    @Column(name = "HamLuong")
     private String hamLuong;
-    @Column(name = "QuyCachDongGoi")
     private String quyCachDongGoi;
-    @Column(name = "NhaSanXuat")
     private String nhaSanXuat;
-    @Column(name = "Advantages")
     private String advantages;
-    @Column(name = "UserObject")
     private String userObject;
-    @Column(name = "UserManual")
     private String userManual;
-    @Column(name = "Pharmacokinetics")
     private String pharmacokinetics;
-    @Column(name = "IsShow_CustomerWebsite")
     private Boolean isShowCustomerWebsite;
-    @Column(name = "Flag")
     private Boolean flag;
-    @Column(name = "GroupIdMapping")
     private Integer groupIdMapping;
-    @Column(name = "GroupNameMapping")
     private String groupNameMapping;
-    @Column(name = "ResultService")
     private String resultService;
-    @Column(name = "TitleResultService")
     private String titleResultService;
-    @Column(name = "TypeResultService")
     private Integer typeResultService;
-    @Column(name = "GroupIdMappingV2")
     private Integer groupIdMappingV2;
-    @Column(name = "StorageConditions")
     private String storageConditions;
-    @Column(name = "StorageLocation")
     private String storageLocation;
-    @Column(name = "MappingDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date mappingDate;
-    @Column(name = "ChiDinh")
     private String chiDinh;
-    @Column(name = "ChongChiDinh")
     private String chongChiDinh;
-    @Column(name = "XuatXu")
     private String xuatXu;
-    @Column(name = "LuuY")
     private String luuY;
-    @Column(name = "PromotionalDiscounts")
     private BigDecimal promotionalDiscounts;
-    @Column(name = "EnablePromotionalDiscounts")
     private Boolean enablePromotionalDiscounts;
-    @Column(name = "DescriptionOnWebsite")
     private String descriptionOnWebsite;
-    @Column(name = "ImgReferenceDrugId")
     private Integer imgReferenceDrugId;
-    @Column(name = "UserUploadImgDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date userUploadImgDate;
-    @Column(name = "UserUploadImgId")
     private Integer userUploadImgId;
-    @Column(name = "StatusConfirm")
     private Integer statusConfirm;
-    @Column(name = "UserIdConfirm")
     private Integer userIdConfirm;
-    @Column(name = "UserIdMapping")
     private Integer userIdMapping;
 }
 
