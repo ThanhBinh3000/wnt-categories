@@ -21,8 +21,6 @@ public class WarehouseTransition extends BaseEntity{
     private Integer deliveryNoteId;
     @Column(name = "ReceiptNoteId")
     private Integer receiptNoteId;
-    @Column(name = "RecordStatusId")
-    private Integer recordStatusId;
     @Column(name = "CreatedDateTime")
     private Date createdDateTime;
     @Column(name = "SourceStoreId")

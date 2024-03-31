@@ -9,11 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.com.gsoft.categories.enums.EnumResponse;
 import vn.com.gsoft.categories.model.dto.NhomKhachHangsReq;
 import vn.com.gsoft.categories.model.system.BaseResponse;
 import vn.com.gsoft.categories.service.NhomKhachHangsService;
-import vn.com.gsoft.categories.util.system.PathContains;
+import vn.com.gsoft.categories.constant.PathContains;
 import vn.com.gsoft.categories.util.system.ResponseUtils;
 
 @RestController

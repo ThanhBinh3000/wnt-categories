@@ -5,9 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.com.gsoft.categories.entity.NhomNhaCungCaps;
-import vn.com.gsoft.categories.entity.NhomThuocs;
 import vn.com.gsoft.categories.model.dto.NhomNhaCungCapsReq;
-import vn.com.gsoft.categories.model.dto.NhomThuocsReq;
 import vn.com.gsoft.categories.repository.NhomNhaCungCapsRepository;
 import vn.com.gsoft.categories.service.NhomNhaCungCapsService;
 

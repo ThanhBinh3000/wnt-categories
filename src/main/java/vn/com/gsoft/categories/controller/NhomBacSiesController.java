@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import vn.com.gsoft.categories.model.system.BaseResponse;
 import vn.com.gsoft.categories.service.NhomBacSiesService;
-import vn.com.gsoft.categories.util.system.PathContains;
+import vn.com.gsoft.categories.constant.PathContains;
 import vn.com.gsoft.categories.util.system.ResponseUtils;
 
 @RestController
