@@ -15,6 +15,7 @@ import java.util.Date;
 @Table(name = "WarehouseTransition")
 public class WarehouseTransition extends BaseEntity{
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
     @Column(name = "DeliveryNoteId")

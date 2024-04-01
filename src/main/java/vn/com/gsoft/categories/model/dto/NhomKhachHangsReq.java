@@ -13,7 +13,6 @@ public class NhomKhachHangsReq extends BaseRequest {
     private String ghiChu;
     private String nhaThuocMaNhaThuoc;
     private Boolean active;
-    private Long recordStatusID;
     private Long groupTypeId;
     private String fullName;
     private String idCard;

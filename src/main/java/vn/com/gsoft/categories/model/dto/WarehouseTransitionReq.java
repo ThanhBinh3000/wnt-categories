@@ -8,7 +8,6 @@ import java.util.Date;
 public class WarehouseTransitionReq {
     private Integer deliveryNoteId;
     private Integer receiptNoteId;
-    private Integer recordStatusId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date createdDateTime;
     private Integer sourceStoreId;

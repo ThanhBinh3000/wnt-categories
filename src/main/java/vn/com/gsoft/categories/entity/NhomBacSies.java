@@ -1,9 +1,6 @@
 package vn.com.gsoft.categories.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,12 +15,12 @@ import java.time.LocalDateTime;
 public class NhomBacSies extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
     private String tenNhomBacSy;
     private String ghiChu;
     private String maNhaThuoc;
-    private Long recordStatusID;
 
 
 }

@@ -12,7 +12,6 @@ public class NhomNhaCungCapsReq extends BaseRequest {
     private String maNhaThuoc;
     private Boolean active;
     private Boolean isDefault;
-    private Long recordStatusID;
     private Long archivedId;
     private Long storeId;
 
