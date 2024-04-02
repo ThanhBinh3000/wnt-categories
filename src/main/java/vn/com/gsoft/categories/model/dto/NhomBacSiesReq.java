@@ -8,5 +8,4 @@ public class NhomBacSiesReq extends BaseRequest {
 
     private String tenNhomBacSy;
     private String ghiChu;
-    private String maNhaThuoc;
 }

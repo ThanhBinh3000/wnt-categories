@@ -108,7 +108,7 @@ public class BaseServiceImpl<E extends BaseEntity,R extends BaseRequest, PK exte
         if (optional.isEmpty()) {
             throw new Exception("Không tìm thấy dữ liệu.");
         }
-        optional.get().setRecordStatusId(2l);
+        optional.get().setRecordStatusId(RecordStatusContains.DELETED);
         repository.save(optional.get());
         return true;
     }
