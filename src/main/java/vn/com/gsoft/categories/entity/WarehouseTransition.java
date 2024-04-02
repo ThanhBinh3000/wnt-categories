@@ -19,15 +19,15 @@ public class WarehouseTransition extends BaseEntity{
     @Column(name = "Id")
     private Long id;
     @Column(name = "DeliveryNoteId")
-    private Integer deliveryNoteId;
+    private Long deliveryNoteId;
     @Column(name = "ReceiptNoteId")
-    private Integer receiptNoteId;
+    private Long receiptNoteId;
     @Column(name = "CreatedDateTime")
     private Date createdDateTime;
     @Column(name = "SourceStoreId")
-    private Integer sourceStoreId;
+    private Long sourceStoreId;
     @Column(name = "TargetStoreId")
-    private Integer targetStoreId;
+    private Long targetStoreId;
     @Column(name = "SourceStoreCode")
     private String sourceStoreCode;
     @Column(name = "TargetStoreCode")
