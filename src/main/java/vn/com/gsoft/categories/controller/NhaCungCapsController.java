@@ -38,6 +38,12 @@ public class NhaCungCapsController {
     return ResponseEntity.ok(ResponseUtils.ok(service.searchList(objReq)));
   }
 
+  @PostMapping(value = PathContains.URL_SEARCH_PAGE+"-management", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> colectionListMangement(@RequestBody NhaCungCapsReq objReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.searchSupplierManagementPage(objReq)));
+  }
+
 
   @PostMapping(value = PathContains.URL_CREATE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)

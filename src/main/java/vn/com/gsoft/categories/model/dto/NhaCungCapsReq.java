@@ -47,5 +47,6 @@ public class NhaCungCapsReq extends BaseRequest {
     private String code;
     private Integer mappingStoreId;
     private Integer isOrganization;
+    private Boolean dataDelete;
 }
 

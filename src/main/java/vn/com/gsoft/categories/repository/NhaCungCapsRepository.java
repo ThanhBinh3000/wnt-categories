@@ -1,5 +1,6 @@
 package vn.com.gsoft.categories.repository;
 
+import jakarta.persistence.Tuple;
 import vn.com.gsoft.categories.entity.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
@@ -80,5 +81,28 @@ public interface NhaCungCapsRepository extends BaseRepository<NhaCungCaps, NhaCu
           + " ORDER BY c.maNhaCungCap desc"
   )
   List<NhaCungCaps> searchList(@Param("param") NhaCungCapsReq param);
-
+  @Query(value = "SELECT c.Id AS id, c.Code AS code, c.TenNhaCungCap AS tenNhaCungCap,"
+          + " c.SoDienThoai AS soDienThoai, c.Barcode AS barcode, n.TenNhomNhaCungCap AS tenNhomNhaCungCap,"
+          + " c.DiaChi AS diaChi"
+          + " FROM NhaCungCaps c"
+          + " JOIN NhomNhaCungCaps n ON c.MaNhomNhaCungCap = n.id"
+          + " WHERE 1=1"
+          + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id})"
+          + " AND (:#{#param.tenNhaCungCap} IS NULL OR lower(c.tenNhaCungCap) LIKE lower(concat('%',CONCAT(:#{#param.tenNhaCungCap},'%'))))"
+          + " AND (:#{#param.diaChi} IS NULL OR lower(c.diaChi) LIKE lower(concat('%',CONCAT(:#{#param.diaChi},'%'))))"
+          + " AND (:#{#param.soDienThoai} IS NULL OR lower(c.soDienThoai) LIKE lower(concat('%',CONCAT(:#{#param.soDienThoai},'%'))))"
+          + " AND (:#{#param.maNhaThuoc} IS NULL OR c.maNhaThuoc = :#{#param.maNhaThuoc} )"
+          + " AND (:#{#param.MaNhomNhaCungCap} IS NULL OR c.MaNhomNhaCungCap = :#{#param.maNhomNhaCungCap}) "
+          + " AND (:#{#param.recordStatusId} IS NULL OR c.recordStatusId = :#{#param.recordStatusId}) "
+          + " AND (:#{#param.barCode} IS NULL OR lower(c.barCode) LIKE lower(concat('%',CONCAT(:#{#param.barCode},'%'))))"
+          + " AND (:#{#param.code} IS NULL OR lower(c.code) LIKE lower(concat('%',CONCAT(:#{#param.code},'%'))))"
+          + " AND ((:#{#param.textSearch} IS NULL OR lower(c.tenNhomNhaCungCap) LIKE lower(concat('%',CONCAT(:#{#param.textSearch},'%'))))"
+          + " OR (:#{#param.textSearch} IS NULL OR lower(c.code) LIKE lower(concat('%',CONCAT(:#{#param.textSearch},'%'))))"
+          + " OR (:#{#param.textSearch} IS NULL OR lower(c.barcode) LIKE lower(concat('%',CONCAT(:#{#param.textSearch},'%'))))"
+          + " OR (:#{#param.textSearch} IS NULL OR lower(c.diaChi) LIKE lower(concat('%',CONCAT(:#{#param.textSearch},'%'))))"
+          + " OR (:#{#param.textSearch} IS NULL OR lower(c.soDienThoai) LIKE lower(concat('%',CONCAT(:#{#param.textSearch},'%')))))"
+          + " ORDER BY c.created desc",
+          nativeQuery = true
+  )
+  Page<Tuple> searchSupplierManagementPage(@Param("param") NhaCungCapsReq param, Pageable pageable);
 }
