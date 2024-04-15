@@ -9,6 +9,7 @@ import vn.com.gsoft.categories.entity.Banks;
 import vn.com.gsoft.categories.model.dto.BanksReq;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BanksRepository extends BaseRepository<Banks, BanksReq, Long> {
@@ -26,4 +27,6 @@ public interface BanksRepository extends BaseRepository<Banks, BanksReq, Long> {
             + " ORDER BY c.id desc"
     )
     List<Banks> searchList(@Param("param") BanksReq param);
+
+    Optional<Banks> findByBin(String bin);
 }

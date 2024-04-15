@@ -12,15 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TinhThanhs")
-public class TinhThanhs extends BaseEntity {
+@Table(name = "TrienKhais")
+public class TrienKhais extends BaseEntity {
     @Id
-    @Column(name = "id")
+    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "MaTinhThanh")
-    private String maTinhThanh;
-    @Column(name = "TenTinhThanh")
-    private String tenTinhThanh;
+    @Column(name = "NhaThuoc_MaNhaThuoc")
+    private String maNhaThuoc;
+    @Column(name = "TieuChiTrienKhai_Id")
+    private Long tieuChiTrienKhaiId;
+    @Column(name = "Active")
+    private Boolean active;
 }
 
