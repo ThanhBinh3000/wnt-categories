@@ -14,11 +14,8 @@ public class NhaCungCapsRes{
     private String tenNhaCungCap;
     private String diaChi;
     private String soDienThoai;
-    private String maNhaThuoc;
-    private Long maNhomNhaCungCap;
     private String tenNhomNhaCungCap;
-    private Integer recordStatusID;
-    private String barCode;
+    private String barcode;
     private String code;
 }
 

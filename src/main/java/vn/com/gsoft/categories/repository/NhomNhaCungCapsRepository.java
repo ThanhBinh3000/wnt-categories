@@ -23,7 +23,7 @@ public interface NhomNhaCungCapsRepository extends BaseRepository<NhomNhaCungCap
             + " AND (:#{#param.recordStatusId} IS NULL OR c.recordStatusId = :#{#param.recordStatusId}) "
             + " AND (:#{#param.archivedId} IS NULL OR c.archivedId = :#{#param.archivedId}) "
             + " AND (:#{#param.storeId} IS NULL OR c.storeId = :#{#param.storeId}) "
-            + " ORDER BY c.tenNhomNhaCungCap desc"
+            + " ORDER BY c.tenNhomNhaCungCap asc"
     )
     Page<NhomNhaCungCaps> searchPage(@org.springframework.data.repository.query.Param("param") NhomNhaCungCapsReq param, Pageable pageable);
 
@@ -36,7 +36,7 @@ public interface NhomNhaCungCapsRepository extends BaseRepository<NhomNhaCungCap
             + " AND (:#{#param.recordStatusId} IS NULL OR c.recordStatusId = :#{#param.recordStatusId}) "
             + " AND (:#{#param.archivedId} IS NULL OR c.archivedId = :#{#param.archivedId}) "
             + " AND (:#{#param.storeId} IS NULL OR c.storeId = :#{#param.storeId}) "
-            + " ORDER BY c.tenNhomNhaCungCap desc"
+            + " ORDER BY c.tenNhomNhaCungCap asc"
     )
     List<NhomNhaCungCaps> searchList(@Param("param") NhomNhaCungCapsReq param);
 
