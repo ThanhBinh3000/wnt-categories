@@ -19,11 +19,8 @@ import java.util.Date;
 public class NhaCungCaps extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="Id")
     private Long id;
-
-    @Column(name = "MaNhaCungCap")
-    private Integer maNhaCungCap;
     @Column(name = "TenNhaCungCap")
     private String tenNhaCungCap;
     @Column(name = "DiaChi")
@@ -50,8 +47,8 @@ public class NhaCungCaps extends BaseEntity {
     private Boolean active;
     @Column(name = "SupplierTypeId")
     private Integer supplierTypeId;
-    @Column(name = "RecordStatusID")
-    private Integer recordStatusID;
+    @Column(name = "RecordStatusId")
+    private Long recordStatusId;
     @Column(name = "BarCode")
     private String barCode;
     @Column(name = "DiaBanHoatDong")

@@ -15,8 +15,6 @@ import java.util.Date;
 
 @Data
 public class NhaCungCapsReq extends BaseRequest {
-
-    private Integer maNhaCungCap;
     private String tenNhaCungCap;
     private String diaChi;
     private String soDienThoai;
@@ -34,8 +32,8 @@ public class NhaCungCapsReq extends BaseRequest {
     private Integer modifiedByUserId;
     private Boolean active;
     private Integer supplierTypeId;
-    private Integer recordStatusID;
-    private String barCode;
+    private Long recordStatusId;
+    private String barcode;
     private String diaBanHoatDong;
     private String website;
     private Integer archivedId;
@@ -47,5 +45,6 @@ public class NhaCungCapsReq extends BaseRequest {
     private String code;
     private Integer mappingStoreId;
     private Integer isOrganization;
+    private Boolean dataDelete;
 }
 
