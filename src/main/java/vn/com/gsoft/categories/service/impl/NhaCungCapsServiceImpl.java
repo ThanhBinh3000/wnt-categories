@@ -62,19 +62,19 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 		var storeCode = userInfo.getNhaThuoc().getMaNhaThuoc();
 		req.setMaNhaThuoc(storeCode);
 		//kiểm tra tên nhà cung cấp có tồn tại chưa
-		if(!req.getTenNhaCungCap().isEmpty()){
+		if(req.getTenNhaCungCap() != null && !req.getTenNhaCungCap().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByName(storeCode, req.getTenNhaCungCap(), null);
 			if(!supplier.isEmpty())
 				throw  new Exception("Tên nhà cung cấp đã tồn tại");
 		}
 		//kiểm tra mã vạch
-		if(!req.getBarcode().isEmpty()){
+		if(req.getBarcode() != null && !req.getBarcode().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByBarcode(storeCode, req.getBarcode(), null);
 			if(!supplier.isEmpty())
 				throw new Exception("Mã vạch đã tồn tại");
 		}
 		//kiểm tra mã
-		if(!req.getCode().isEmpty()){
+		if(req.getCode() != null && !req.getCode().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByCode(storeCode, req.getCode(), null);
 			if(!supplier.isEmpty())
 				throw new Exception("Mã nhà cung cấp đã tồn tại");
@@ -98,19 +98,19 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 		var storeCode = userInfo.getNhaThuoc().getMaNhaThuoc();
 		req.setMaNhaThuoc(storeCode);
 		//kiểm tra tên nhà cung cấp có tồn tại chưa
-		if(!req.getTenNhaCungCap().isEmpty()){
+		if(req.getTenNhaCungCap() != null && !req.getTenNhaCungCap().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByName(storeCode, req.getTenNhaCungCap(), req.getId());
 			if(!supplier.isEmpty())
 				throw  new Exception("Tên nhà cung cấp đã tồn tại");
 		}
 		//kiểm tra mã vạch
-		if(!req.getBarcode().isEmpty()){
+		if(req.getBarcode() != null && !req.getBarcode().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByBarcode(storeCode, req.getBarcode(), req.getId());
 			if(!supplier.isEmpty())
 				throw new Exception("Mã vạch đã tồn tại");
 		}
 		//kiểm tra mã
-		if(!req.getCode().isEmpty()){
+		if(req.getCode() != null && !req.getCode().isEmpty()){
 			var supplier = this.hdrRepo.findNhaCungCapByCode(storeCode, req.getCode(), req.getId());
 			if(!supplier.isEmpty())
 				throw new Exception("Mã nhà cung cấp đã tồn tại");
@@ -140,6 +140,27 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 			//taoPhieuDauKy(storeCode, e.getId(), userInfo.getId(), e.getNoDauKy(), userInfo.getNhaThuoc().getId());
 		}
 		return e;
+	}
+	//xoá vĩnh viễn
+	@Override
+	public boolean deleteForever(Long id) throws Exception{
+		Profile userInfo = this.getLoggedUser();
+		if (userInfo == null)
+			throw new Exception("Bad request.");
+		Optional<NhaCungCaps> optional = hdrRepo.findById(id);
+		if (optional.isEmpty()) {
+			throw new Exception("Không tìm thấy dữ liệu.");
+		}
+		var storeCode = userInfo.getNhaThuoc().getMaNhaThuoc();
+		//kiểm tra có giao dịch nhập xuất chưa
+		var phieuNhaps = this.hdrRepo.findPhieuNhapByMaNhaCungCap(storeCode, id);
+		var phieuTraLais = this.hdrRepo.findPhieuTraHangByMaNhaCungCap(storeCode, id);
+		if(!phieuNhaps.isEmpty() || !phieuTraLais.isEmpty())
+			throw new Exception("Đã tồn tại giao dịch bạn không được xoá");
+
+		optional.get().setRecordStatusId(RecordStatusContains.DELETED_FOREVER);
+		hdrRepo.save(optional.get());
+		return true;
 	}
 	//endregion
 

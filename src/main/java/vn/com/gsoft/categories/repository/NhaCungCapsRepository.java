@@ -170,4 +170,14 @@ public interface NhaCungCapsRepository extends BaseRepository<NhaCungCaps, NhaCu
           " AND LoaiXuatNhap_MaLoaiXuatNhap = 7",
           nativeQuery = true)
   List<PhieuNhapNoDauKyRes> findPhieuNhapNoDauKyById(@Param("storeCode") String storeCode, @Param("maNhaCungCap") Long maNhaCungCap);
+  //kiểm tra đã có giao dịch nhập chưa
+  @Query(value = "SELECT c.Id FROM PhieuNhaps c WHERE c.NhaThuoc_MaNhaThuoc = :storeCode" +
+          " AND c.NhaCungCap_MaNhaCungCap = :id AND c.RecordStatusId != 3",
+  nativeQuery = true)
+  List<Long> findPhieuNhapByMaNhaCungCap(@Param("storeCode") String storeCode, @Param("id") Long id);
+  //kiểm tra đã có giao dịch trả hàng chưa
+  @Query(value = "SELECT c.Id FROM PhieuXuats c WHERE c.NhaThuoc_MaNhaThuoc = :storeCode" +
+          " AND c.NhaCungCap_MaNhaCungCap = :id AND c.RecordStatusId != 3",
+          nativeQuery = true)
+  List<Long> findPhieuTraHangByMaNhaCungCap(@Param("storeCode") String storeCode, @Param("id") Long id);
 }
