@@ -12,7 +12,7 @@ public class PhieuThuKhacReq extends BaseRequest {
 
     private Long id;
 
-    private Integer rewardProgramId;
+    private Long rewardProgramId;
 
     private BigDecimal amount;
 

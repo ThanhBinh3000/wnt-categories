@@ -16,9 +16,9 @@ public class RewardProgramSupplierRes {
     private Integer supplierId;
 
     private String content;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date fromDate;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private Date toDate;
     @TransitionFrom
     private List<PhieuThuKhacReq> items;

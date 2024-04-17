@@ -38,14 +38,14 @@ public interface RewardProgramSupplierRepository extends BaseRepository<RewardPr
 
       //lấy ra danh sách phiếu thu khác
     @Query(value = "SELECT c.id AS id, c.RewardProgramId AS rewardProgramId," +
-            " c.Amount AS amount, c.Description AS description," +
+            " c.Amount AS amount, c.DienGiai AS description," +
             " c.SoPhieu AS noteNumber, c.NgayTao AS noteDate" +
             " FROM PhieuThuChis c" +
             " WHERE 1=1" +
             " AND c.NhaThuoc_MaNhaThuoc = :storeCode" +
-            " AND c.NhaCungCap_MaNhaCungCap in (:supplierIds)" +
+            " AND c.RewardProgramId in (:rewardProgramIds)" +
             " AND c.LoaiPhieu = 3", nativeQuery = true)
     List<Tuple> findPhieuThuKhacByMaNhaCungCap(@Param("storeCode") String storeCode,
-                                               @Param("supplierIds") Long[] supplierId);
+                                               @Param("rewardProgramIds") List<Long> rewardProgramIds);
 
 }
