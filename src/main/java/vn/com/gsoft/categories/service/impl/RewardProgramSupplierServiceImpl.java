@@ -90,6 +90,7 @@ public class RewardProgramSupplierServiceImpl extends BaseServiceImpl<RewardProg
 		e = hdrRepo.save(e);
 		return e;
 	}
+	//cap nhat
 	@Override
 	public RewardProgramSupplier update (RewardProgramSupplierReq req) throws Exception {
 		Profile userInfo = this.getLoggedUser();
