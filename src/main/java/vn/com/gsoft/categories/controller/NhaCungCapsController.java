@@ -69,4 +69,9 @@ public class NhaCungCapsController {
   public ResponseEntity<BaseResponse> restore(@Valid @RequestBody NhaCungCapsReq idSearchReq) throws Exception {
     return ResponseEntity.ok(ResponseUtils.ok(service.restore(idSearchReq.getId())));
   }
+  @PostMapping(value = PathContains.URL_DELETE+"-forever", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> deleteForever(@Valid @RequestBody NhaCungCapsReq idSearchReq) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.deleteForever(idSearchReq.getId())));
+  }
 }
