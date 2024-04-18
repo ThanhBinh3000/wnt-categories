@@ -9,6 +9,7 @@ import vn.com.gsoft.categories.entity.TrienKhais;
 import vn.com.gsoft.categories.model.dto.TrienKhaisReq;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TrienKhaisRepository extends BaseRepository<TrienKhais, TrienKhaisReq, Long> {
@@ -33,4 +34,5 @@ public interface TrienKhaisRepository extends BaseRepository<TrienKhais, TrienKh
   )
   List<TrienKhais> searchList(@Param("param") TrienKhaisReq param);
 
+  List<TrienKhais> findAllByMaNhaThuoc(String maNhaThuoc);
 }
