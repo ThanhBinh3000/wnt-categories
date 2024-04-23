@@ -6,14 +6,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.com.gsoft.categories.constant.RecordStatusContains;
-import vn.com.gsoft.categories.entity.NhomBacSies;
 import vn.com.gsoft.categories.entity.NhomKhachHangs;
-import vn.com.gsoft.categories.model.dto.NhomBacSiesReq;
 import vn.com.gsoft.categories.model.dto.NhomKhachHangsReq;
 import vn.com.gsoft.categories.model.system.Profile;
 import vn.com.gsoft.categories.repository.NhomKhachHangsRepository;
 import vn.com.gsoft.categories.service.NhomKhachHangsService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +25,15 @@ public class NhomKhachHangsServiceImpl extends BaseServiceImpl<NhomKhachHangs, N
         super(hdrRepo);
         this.hdrRepo = hdrRepo;
     }
-
+    @Override
+    public List<NhomKhachHangs> searchList(NhomKhachHangsReq req) throws Exception {
+        Profile userInfo = this.getLoggedUser();
+        if (userInfo == null)
+            throw new Exception("Bad request.");
+        var storeCode = userInfo.getNhaThuoc().getMaNhaThuoc();
+        req.setNhaThuocMaNhaThuoc(storeCode);
+        return hdrRepo.searchList(req);
+    }
     @Override
     public NhomKhachHangs create(NhomKhachHangsReq req) throws Exception {
         Profile userInfo = this.getLoggedUser();

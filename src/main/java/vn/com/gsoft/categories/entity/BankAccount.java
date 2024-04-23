@@ -21,8 +21,16 @@ public class BankAccount extends BaseEntity {
     private String storeCode;
     @Column(name = "BankBIN")
     private String bankBin;
-    @Column(name = "ShortName")
-    private String shortName;
     @Column(name = "AccountNo")
     private String accountNo;
+
+    @Transient
+    private String bankLogo;
+    @Transient
+    private String bankCode;
+    @Transient
+    private String bankName;
+    @Transient
+    private String bankShortName;
+
 }
