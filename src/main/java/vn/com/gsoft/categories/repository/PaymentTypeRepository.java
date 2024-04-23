@@ -20,7 +20,7 @@ public interface PaymentTypeRepository extends CrudRepository<PaymentType, Long>
           + " AND (:#{#param.id} IS NULL OR c.id = :#{#param.id}) "
           + " AND (:#{#param.name} IS NULL OR lower(c.name) LIKE lower(concat('%',CONCAT(:#{#param.name},'%'))))"
           + " AND (:#{#param.displayName} IS NULL OR lower(c.displayName) LIKE lower(concat('%',CONCAT(:#{#param.displayName},'%'))))"
-          + " ORDER BY c.id desc"
+          + " ORDER BY c.id asc"
   )
   List<PaymentType> searchList(@Param("param") PaymentTypeReq param);
 
