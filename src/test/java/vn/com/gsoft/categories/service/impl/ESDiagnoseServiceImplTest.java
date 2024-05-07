@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +40,16 @@ class ESDiagnoseServiceImplTest {
         paggingReq.setLimit(10);
         noteMedicalsReq.setPaggingReq(paggingReq);
         List<ESDiagnose> sampleNotes = esdiagnoseService.searchList(noteMedicalsReq);
+        assert sampleNotes != null;
+    }
+    @Test
+    void searchPage() throws Exception {
+        ESDiagnoseReq noteMedicalsReq = new ESDiagnoseReq();
+        PaggingReq paggingReq = new PaggingReq();
+        paggingReq.setPage(0);
+        paggingReq.setLimit(10);
+        noteMedicalsReq.setPaggingReq(paggingReq);
+        Page<ESDiagnose> sampleNotes = esdiagnoseService.searchPage(noteMedicalsReq);
         assert sampleNotes != null;
     }
 }

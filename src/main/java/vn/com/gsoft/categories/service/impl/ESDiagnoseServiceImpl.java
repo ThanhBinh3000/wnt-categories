@@ -1,6 +1,7 @@
 package vn.com.gsoft.categories.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,14 @@ public class ESDiagnoseServiceImpl implements ESDiagnoseService {
 
     @Override
     public List<ESDiagnose> searchList(ESDiagnoseReq req) {
+        req.setRecordStatusId(RecordStatusContains.ACTIVE);
+        return esdiagnoseRepository.searchList(req);
+    }
+
+    @Override
+    public Page<ESDiagnose> searchPage(ESDiagnoseReq req) {
         Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
         req.setRecordStatusId(RecordStatusContains.ACTIVE);
-        return esdiagnoseRepository.searchList(req, pageable);
+        return esdiagnoseRepository.searchPage(req, pageable);
     }
 }
