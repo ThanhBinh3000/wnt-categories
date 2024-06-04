@@ -28,7 +28,7 @@ public class NhaCungCapsController {
   @PostMapping(value = PathContains.URL_SEARCH_PAGE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> colection(@RequestBody NhaCungCapsReq objReq) throws Exception {
-    return ResponseEntity.ok(ResponseUtils.ok(service.searchSupplierManagementPage(objReq)));
+    return ResponseEntity.ok(ResponseUtils.ok(service.searchPage(objReq)));
   }
 
 

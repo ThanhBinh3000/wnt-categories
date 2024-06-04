@@ -8,5 +8,4 @@ import vn.com.gsoft.categories.repository.*;
 
 public interface NhaCungCapsService extends BaseService<NhaCungCaps, NhaCungCapsReq, Long> {
 
-    Page<NhaCungCapsRes> searchSupplierManagementPage(NhaCungCapsReq objReq) throws Exception;
 }

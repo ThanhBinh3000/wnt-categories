@@ -73,5 +73,7 @@ public class NhaCungCaps extends BaseEntity {
     private Integer mappingStoreId;
     @Column(name = "IsOrganization")
     private Integer isOrganization;
+    @Transient
+    private  NhomNhaCungCaps nhomNhaCungCaps;
 }
 
