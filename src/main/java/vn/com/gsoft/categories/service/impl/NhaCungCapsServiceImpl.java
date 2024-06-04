@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import vn.com.gsoft.categories.constant.ENoteType;
 import vn.com.gsoft.categories.constant.RecordStatusContains;
 import vn.com.gsoft.categories.entity.*;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsReq;
@@ -30,19 +31,25 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 
 	//region Fields
 	private NhaCungCapsRepository hdrRepo;
+	private NhomNhaCungCapsRepository nhomNhaCungCapsRepository;
+	private PhieuNhapsRepository phieuNhapsRepository;
 	//endregion
 
 	//region Constructor
 	@Autowired
-	public NhaCungCapsServiceImpl(NhaCungCapsRepository hdrRepo) {
+	public NhaCungCapsServiceImpl(NhaCungCapsRepository hdrRepo,
+								  NhomNhaCungCapsRepository nhomNhaCungCapsRepository,
+								  PhieuNhapsRepository phieuNhapsRepository) {
 		super(hdrRepo);
 		this.hdrRepo = hdrRepo;
+		this.nhomNhaCungCapsRepository = nhomNhaCungCapsRepository;
+		this.phieuNhapsRepository = phieuNhapsRepository;
 	}
     //endregions
 
 	//region Interface Implementation
 	@Override
-	public Page<NhaCungCapsRes> searchSupplierManagementPage(NhaCungCapsReq req) throws Exception {
+	public Page<NhaCungCaps> searchPage(NhaCungCapsReq req) throws Exception {
 		Profile userInfo = this.getLoggedUser();
 		if (userInfo == null)
 			throw new Exception("Bad request.");
@@ -52,7 +59,14 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 		req.setSupplierTypeId(0);
 		req.setRecordStatusId(req.getDataDelete() ? RecordStatusContains.DELETED : RecordStatusContains.ACTIVE);
 		Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
-		return DataUtils.convertPage(hdrRepo.searchSupplierManagementPage(req, pageable), NhaCungCapsRes.class);
+		Page<NhaCungCaps> nhaCungCaps= hdrRepo.searchPage(req,pageable);
+		for (NhaCungCaps nc : nhaCungCaps.getContent()){
+			if(nc.getMaNhomNhaCungCap() != null && nc.getMaNhomNhaCungCap() > 0){
+				Optional<NhomNhaCungCaps> byId = nhomNhaCungCapsRepository.findById(nc.getMaNhomNhaCungCap().longValue());
+				byId.ifPresent(nc::setNhomNhaCungCaps);
+			}
+		}
+		return nhaCungCaps;
 	}
 	@Override
 	public NhaCungCaps create(NhaCungCapsReq req) throws Exception{
@@ -86,7 +100,7 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 		e.setRecordStatusId(RecordStatusContains.ACTIVE);
 		e = hdrRepo.save(e);
 		if (e.getNoDauKy() != null && e.getId() > 0){
-			//taoPhieuDauKy(storeCode, e.getId(), userInfo.getId(), e.getNoDauKy(), userInfo.getNhaThuoc().getId());
+			taoPhieuDauKy(storeCode, e.getId(), userInfo.getId(), e.getNoDauKy().doubleValue(), userInfo.getNhaThuoc().getId());
 		}
 		return e;
 	}
@@ -137,7 +151,7 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 
 		e = hdrRepo.save(e);
 		if (e.getNoDauKy() != null){
-			//taoPhieuDauKy(storeCode, e.getId(), userInfo.getId(), e.getNoDauKy(), userInfo.getNhaThuoc().getId());
+			taoPhieuDauKy(storeCode, e.getId(), userInfo.getId(), e.getNoDauKy().doubleValue(), userInfo.getNhaThuoc().getId());
 		}
 		return e;
 	}
@@ -167,33 +181,38 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 	//region Private Methods
 	//tạo phiếu đầu kỳ
 	private void taoPhieuDauKy(String storeCode, Long maNhaCungCap,
-							   Long userId, BigDecimal tongTien, Long storeId) throws Exception{
-		var phieuNhapNoDauKy = new PhieuNhapNoDauKyRes();
-		List<PhieuNhapNoDauKyRes> phieuNhapNoDauKys = this.hdrRepo.findPhieuNhapNoDauKyById(storeCode, maNhaCungCap);
-		Long recordStatusId = 0L;
-		if(!phieuNhapNoDauKys.isEmpty()){
-			recordStatusId = tongTien.compareTo(BigDecimal.valueOf(0)) == 0
-					? RecordStatusContains.DELETED : RecordStatusContains.ACTIVE;
-			phieuNhapNoDauKy.setModified(Date.from(Instant.now()));
-			phieuNhapNoDauKy.setModifiedByUserId(userId);
-			phieuNhapNoDauKy.setRecordStatusId(recordStatusId);
-			phieuNhapNoDauKy.setTongTien(tongTien);
-			phieuNhapNoDauKy.setId(phieuNhapNoDauKys.get(0).getId());
-			hdrRepo.updatePhieuNhapNoDauKy(phieuNhapNoDauKy);
-		}else{
-			phieuNhapNoDauKy.setNgayNhap(Date.from(Instant.now()));
-			phieuNhapNoDauKy.setCreated(Date.from(Instant.now()));
-			phieuNhapNoDauKy.setLoaiXuatNhap_MaLoaiXuatNhap(7L);
-			phieuNhapNoDauKy.setMaNhaCungCap(maNhaCungCap);
-			phieuNhapNoDauKy.setCreatedByUserId(userId);
-			phieuNhapNoDauKy.setIsDebt(true);
-			phieuNhapNoDauKy.setStoreId(storeId);
-			phieuNhapNoDauKy.setMaNhaThuoc(storeCode);
-			phieuNhapNoDauKy.setTongTien(tongTien);
-			phieuNhapNoDauKy.setRecordStatusId(RecordStatusContains.ACTIVE);
-
-			this.hdrRepo.insertPhieuNhapNoDauKy(phieuNhapNoDauKy);
+							   Long userId, Double tongTien, Long storeId) throws Exception{
+		PhieuNhaps phieuNhaps = this.phieuNhapsRepository.findByNhaThuocMaNhaThuocAndNhaCungCapMaNhaCungCapAndLoaiXuatNhapMaLoaiXuatNhapAndRecordStatusId(
+				storeCode,
+				maNhaCungCap,
+				ENoteType.InitialSupplierDebt,
+				(int) RecordStatusContains.ACTIVE);
+		if(phieuNhaps != null && phieuNhaps.getId() != null && phieuNhaps.getId() > 0){
+			phieuNhaps.setRecordStatusId(tongTien > 0 ? RecordStatusContains.ACTIVE : RecordStatusContains.DELETED_FOREVER);
+			phieuNhaps.setTongTien(tongTien);
+			phieuNhaps.setIsDebt(tongTien > 0);
+		}else {
+			phieuNhaps = new PhieuNhaps();
+			phieuNhaps.setNhaCungCapMaNhaCungCap(maNhaCungCap);
+			phieuNhaps.setSoPhieuNhap(0L);
+			phieuNhaps.setRecordStatusId(RecordStatusContains.ACTIVE);
+			phieuNhaps.setCreated(new Date());
+			phieuNhaps.setCreatedByUserId(userId);
+			phieuNhaps.setTongTien(tongTien);
+			phieuNhaps.setIsDebt(true);
+			phieuNhaps.setLoaiXuatNhapMaLoaiXuatNhap(ENoteType.InitialSupplierDebt.longValue());
+			phieuNhaps.setNhaThuocMaNhaThuoc(storeCode);
+			phieuNhaps.setStoreId(storeId);
+			phieuNhaps.setTargetId(null);
+			phieuNhaps.setTargetStoreId(null);
+			phieuNhaps.setTargetManagementId(null);
+			phieuNhaps.setIsModified(false);
+			phieuNhaps.setConnectivityStatusID(0L);
+			phieuNhaps.setDaTra(0d);
+			phieuNhaps.setDiscount(0d);
+			phieuNhaps.setVat(0);
 		}
+		phieuNhapsRepository.save(phieuNhaps);
 	}
 	//endregion
 }
