@@ -4,6 +4,9 @@ package vn.com.gsoft.categories.service.impl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.com.gsoft.categories.constant.RecordStatusContains;
 import vn.com.gsoft.categories.entity.NhomKhachHangs;
@@ -25,6 +28,18 @@ public class NhomKhachHangsServiceImpl extends BaseServiceImpl<NhomKhachHangs, N
         super(hdrRepo);
         this.hdrRepo = hdrRepo;
     }
+
+    @Override
+    public Page<NhomKhachHangs> searchPage(NhomKhachHangsReq req) throws Exception {
+        Profile userInfo = this.getLoggedUser();
+        if (userInfo == null)
+            throw new Exception("Bad request.");
+
+        req.setNhaThuocMaNhaThuoc(userInfo.getNhaThuoc().getMaNhaThuoc());
+        Pageable pageable = PageRequest.of(req.getPaggingReq().getPage(), req.getPaggingReq().getLimit());
+        return hdrRepo.searchPage(req, pageable);
+    }
+
     @Override
     public List<NhomKhachHangs> searchList(NhomKhachHangsReq req) throws Exception {
         Profile userInfo = this.getLoggedUser();
@@ -34,6 +49,7 @@ public class NhomKhachHangsServiceImpl extends BaseServiceImpl<NhomKhachHangs, N
         req.setNhaThuocMaNhaThuoc(storeCode);
         return hdrRepo.searchList(req);
     }
+
     @Override
     public NhomKhachHangs create(NhomKhachHangsReq req) throws Exception {
         Profile userInfo = this.getLoggedUser();
