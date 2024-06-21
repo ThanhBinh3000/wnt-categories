@@ -1,28 +1,38 @@
 package vn.com.gsoft.categories.service.impl;
 
+import com.google.gson.Gson;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 import vn.com.gsoft.categories.constant.ENoteType;
+import vn.com.gsoft.categories.constant.ImportConstant;
 import vn.com.gsoft.categories.constant.RecordStatusContains;
 import vn.com.gsoft.categories.entity.*;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsReq;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsRes;
 import vn.com.gsoft.categories.model.dto.PhieuNhapNoDauKyRes;
 import vn.com.gsoft.categories.model.system.Profile;
+import vn.com.gsoft.categories.model.system.WrapData;
 import vn.com.gsoft.categories.repository.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.com.gsoft.categories.service.KafkaProducer;
 import vn.com.gsoft.categories.service.NhaCungCapsService;
 import vn.com.gsoft.categories.util.system.DataUtils;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 
 
 @Service
@@ -33,6 +43,10 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 	private NhaCungCapsRepository hdrRepo;
 	private NhomNhaCungCapsRepository nhomNhaCungCapsRepository;
 	private PhieuNhapsRepository phieuNhapsRepository;
+	@Autowired
+	private KafkaProducer kafkaProducer;
+	@Value("${wnt.kafka.internal.consumer.topic.import-master}")
+	private String topicName;
 	//endregion
 
 	//region Constructor
@@ -213,6 +227,45 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 			phieuNhaps.setVat(0);
 		}
 		phieuNhapsRepository.save(phieuNhaps);
+	}
+
+	@Override
+	public boolean importExcel(MultipartFile file) throws Exception {
+		Profile userInfo = this.getLoggedUser();
+		if (userInfo == null)
+			throw new Exception("Bad request.");
+		Supplier<NhaCungCaps> nhaCungCapsSupplier = NhaCungCaps::new;
+		BaseServiceImpl<NhaCungCaps, NhaCungCapsReq, Long> service = new BaseServiceImpl<>(nhaCungCapsSupplier);
+		InputStream inputStream = file.getInputStream();
+		try (Workbook workbook = new XSSFWorkbook(inputStream)) {
+			List<String> propertyNames = Arrays.asList("code", "tenNhomNhaCungCaps", "tenNhaCungCap", "diaChi"
+					, "soDienThoai", "barCode", "noDauKy", "soFax", "maSoThue", "nguoiDaiDien", "nguoiLienHe", "email");
+			List<NhaCungCaps> nhaCungCaps = new ArrayList<>(service.handleImportExcel(workbook, propertyNames));
+			pushToKafka(nhaCungCaps);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private void pushToKafka(List<NhaCungCaps> nhaCungCaps) throws Exception {
+		int size = nhaCungCaps.size();
+		int index = 1;
+		UUID uuid = UUID.randomUUID();
+		String bathKey = uuid.toString();
+		for(NhaCungCaps bs :nhaCungCaps){
+			String key = bs.getMaNhaThuoc();
+			WrapData data = new WrapData();
+			data.setBathKey(bathKey);
+			data.setCode(ImportConstant.NHA_CUNG_CAP);
+			data.setSendDate(new Date());
+			data.setData(bs);
+			data.setTotal(size);
+			data.setIndex(index++);
+			data.setProfile(this.getLoggedUser());
+			kafkaProducer.sendInternal(topicName, key, new Gson().toJson(data));
+		}
 	}
 	//endregion
 }
