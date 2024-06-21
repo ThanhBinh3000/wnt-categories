@@ -1,6 +1,7 @@
 package vn.com.gsoft.categories.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 import vn.com.gsoft.categories.constant.PathContains;
 import vn.com.gsoft.categories.entity.*;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsReq;
@@ -73,5 +74,11 @@ public class NhaCungCapsController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<BaseResponse> deleteForever(@Valid @RequestBody NhaCungCapsReq idSearchReq) throws Exception {
     return ResponseEntity.ok(ResponseUtils.ok(service.deleteForever(idSearchReq.getId())));
+  }
+
+  @PostMapping(value = PathContains.URL_IMPORT, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<BaseResponse> importExcel(@RequestParam("file") MultipartFile file) throws Exception {
+    return ResponseEntity.ok(ResponseUtils.ok(service.importExcel(file)));
   }
 }

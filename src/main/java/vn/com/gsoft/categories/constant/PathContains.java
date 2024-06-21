@@ -10,6 +10,7 @@ public class PathContains {
     public static final String URL_DETAIL = "/detail/{id}";
 
     public static final String URL_DELETE = "/delete";
+    public static final String URL_IMPORT = "/import";
     public static final String URL_RESTORE = "/restore";
 
     public static final String URL_NHOM_NHA_CUNG_CAP = "/nhom-nha-cung-cap";

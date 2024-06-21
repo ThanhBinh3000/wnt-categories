@@ -47,8 +47,8 @@ public class NhaCungCaps extends BaseEntity {
     private Boolean active;
     @Column(name = "SupplierTypeId")
     private Integer supplierTypeId;
-    @Column(name = "RecordStatusId")
-    private Long recordStatusId;
+//    @Column(name = "RecordStatusId")
+//    private Long recordStatusId;
     @Column(name = "BarCode")
     private String barCode;
     @Column(name = "DiaBanHoatDong")
@@ -75,5 +75,7 @@ public class NhaCungCaps extends BaseEntity {
     private Integer isOrganization;
     @Transient
     private  NhomNhaCungCaps nhomNhaCungCaps;
+    @Transient
+    private  String tenNhomNhaCungCaps;
 }
 
