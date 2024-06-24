@@ -1,6 +1,7 @@
 package vn.com.gsoft.categories.service.impl;
 
 
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +10,15 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import vn.com.gsoft.categories.entity.Process;
+import vn.com.gsoft.categories.entity.ProcessDtl;
+import vn.com.gsoft.categories.model.system.WrapData;
+import vn.com.gsoft.categories.repository.ProcessDtlRepository;
+import vn.com.gsoft.categories.repository.ProcessRepository;
 import vn.com.gsoft.categories.service.KafkaProducer;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +32,11 @@ public class KafkaProducerImpl implements KafkaProducer {
 
     @Value("${wnt.kafka.send-timeout}")
     private long sendTimeout;
+
+    @Autowired
+    private ProcessRepository processRepository;
+    @Autowired
+    private ProcessDtlRepository processDtlRepository;
 
     @Override
     @Retryable(
@@ -52,5 +64,32 @@ public class KafkaProducerImpl implements KafkaProducer {
         log.info("Sent Time: {}  - Sent topic: {}  Sent key: {} - payload: {}", new Date(), topic, key, payload);
         CompletableFuture<SendResult<String, String>> future = kafkaInternalTemplate.send(topic, key, payload);
         return future.get(sendTimeout, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public Process createProcess(String batchKey, String maNhaThuoc, String json, Date date, int size) throws Exception {
+        // check batchKey
+        Optional<Process> checkOpt = processRepository.findByBatchKey(batchKey);
+        if (checkOpt.isPresent()) {
+            throw new Exception("Lỗi trùng batchKey!");
+        }
+        Process process = new Process();
+        process.setMaNhaThuoc(maNhaThuoc);
+        process.setBatchKey(batchKey);
+        process.setStartDate(date);
+        process.setTotal(size);
+        process.setStatus(0);
+        return processRepository.save(process);
+    }
+
+    @Override
+    public ProcessDtl createProcessDtl(Process process, WrapData data) {
+        ProcessDtl processDtl = new ProcessDtl();
+        processDtl.setHdrId(process.getId());
+        processDtl.setIndex(data.getIndex());
+        processDtl.setData(new Gson().toJson(data));
+        processDtl.setStartDate(new Date());
+        processDtl.setStatus(0); // 0: khởi tạo, 1: running , 2:done
+        return processDtlRepository.save(processDtl);
     }
 }
