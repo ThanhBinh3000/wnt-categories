@@ -13,6 +13,7 @@ import vn.com.gsoft.categories.constant.ENoteType;
 import vn.com.gsoft.categories.constant.ImportConstant;
 import vn.com.gsoft.categories.constant.RecordStatusContains;
 import vn.com.gsoft.categories.entity.*;
+import vn.com.gsoft.categories.entity.Process;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsReq;
 import vn.com.gsoft.categories.model.dto.NhaCungCapsRes;
 import vn.com.gsoft.categories.model.dto.PhieuNhapNoDauKyRes;
@@ -254,6 +255,8 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 		int index = 1;
 		UUID uuid = UUID.randomUUID();
 		String bathKey = uuid.toString();
+		Profile userInfo = this.getLoggedUser();
+		Process process = kafkaProducer.createProcess(bathKey, userInfo.getNhaThuoc().getMaNhaThuoc(), new Gson().toJson(nhaCungCaps), new Date(),size);
 		for(NhaCungCaps bs :nhaCungCaps){
 			String key = bs.getMaNhaThuoc();
 			WrapData data = new WrapData();
@@ -264,6 +267,7 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 			data.setTotal(size);
 			data.setIndex(index++);
 			data.setProfile(this.getLoggedUser());
+			kafkaProducer.createProcessDtl(process, data);
 			kafkaProducer.sendInternal(topicName, key, new Gson().toJson(data));
 		}
 	}

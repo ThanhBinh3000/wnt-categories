@@ -19,7 +19,7 @@ public class PortCustomizerConfiguration implements WebServerFactoryCustomizer<C
     @Override
     public void customize(ConfigurableWebServerFactory factory) {
         int port = findRandomOpenPort(portRange[0], portRange[1]);
-        factory.setPort(port);
+        factory.setPort(8072);
         System.setProperty("server.port", String.valueOf(port));
     }
 
