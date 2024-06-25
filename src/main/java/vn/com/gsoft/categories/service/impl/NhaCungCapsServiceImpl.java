@@ -231,26 +231,25 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 	}
 
 	@Override
-	public boolean importExcel(MultipartFile file) throws Exception {
+	public Process importExcel(MultipartFile file) throws Exception {
 		Profile userInfo = this.getLoggedUser();
 		if (userInfo == null)
 			throw new Exception("Bad request.");
 		Supplier<NhaCungCaps> nhaCungCapsSupplier = NhaCungCaps::new;
-		BaseServiceImpl<NhaCungCaps, NhaCungCapsReq, Long> service = new BaseServiceImpl<>(nhaCungCapsSupplier);
 		InputStream inputStream = file.getInputStream();
 		try (Workbook workbook = new XSSFWorkbook(inputStream)) {
 			List<String> propertyNames = Arrays.asList("code", "tenNhomNhaCungCaps", "tenNhaCungCap", "diaChi"
 					, "soDienThoai", "barCode", "noDauKy", "soFax", "maSoThue", "nguoiDaiDien", "nguoiLienHe", "email");
-			List<NhaCungCaps> nhaCungCaps = new ArrayList<>(service.handleImportExcel(workbook, propertyNames));
-			pushToKafka(nhaCungCaps);
-			return true;
+			List<NhaCungCaps> nhaCungCaps = new ArrayList<>(handleImportExcel(workbook, propertyNames,nhaCungCapsSupplier));
+			return pushToKafka(nhaCungCaps);
 		} catch (Exception e) {
+			log.error(e.getMessage());
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
-	private void pushToKafka(List<NhaCungCaps> nhaCungCaps) throws Exception {
+	private Process pushToKafka(List<NhaCungCaps> nhaCungCaps) throws Exception {
 		int size = nhaCungCaps.size();
 		int index = 1;
 		UUID uuid = UUID.randomUUID();
@@ -270,6 +269,7 @@ public class NhaCungCapsServiceImpl extends BaseServiceImpl<NhaCungCaps, NhaCung
 			kafkaProducer.createProcessDtl(process, data);
 			kafkaProducer.sendInternal(topicName, key, new Gson().toJson(data));
 		}
+		return process;
 	}
 	//endregion
 }

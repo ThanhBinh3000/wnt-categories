@@ -1,11 +1,13 @@
 package vn.com.gsoft.categories.service;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.gsoft.categories.model.system.Profile;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.Supplier;
 
 public interface BaseService<E,R, PK extends Serializable> {
 
@@ -27,4 +29,5 @@ public interface BaseService<E,R, PK extends Serializable> {
     boolean restore(PK id) throws Exception;
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     boolean deleteForever(PK id) throws Exception;
+    <T> List<T> handleImportExcel(Workbook workbook, List<String> propertyNames, Supplier<T> supplier) throws Exception;
 }
